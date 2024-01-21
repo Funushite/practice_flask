@@ -2,11 +2,11 @@
 {% block title %} calculation {% endblock %}
 
 {% block content %}
-<form method="POST" action="/calculate/">
-  <input type="radio" name="mode" id="plus" value="plus" checked>たし算
-  <input type="radio" name="mode" id="mlt_by" value="mlt_by">かけ算
-  <input type="radio" name="mode" id="minus" value="minus">ひき算
-  <input type="radio" name="mode" id="div_by" value="div_by">わり算
+<form method="POST" onsubmit="cal(); return false">
+  <input type="radio" name="mode" id="plus" value="0" {{modes[0]}}>たし算
+  <input type="radio" name="mode" id="minus" value="1" {{modes[1]}}>ひき算
+  <input type="radio" name="mode" id="mlt_by" value="2" {{modes[2]}}>かけ算
+  <input type="radio" name="mode" id="div_by" value="3" {{modes[3]}}>わり算
   <br>
   
   <label>a：</label>
@@ -16,7 +16,7 @@
     min="-30"
     max="30"
     step="1"
-    value={% if var_a %}{{var_a}}{% endif %}
+    value={{var_a}}
   >
 
   <label>b：</label>
@@ -26,16 +26,14 @@
     min="-30"
     max="30"
     step="1" 
-    value={% if var_b %}{{var_b}}{% endif %}
+    value={{var_b}}
   >
   
   <button type="submit" hidden>変更</button>
 </form>
 
 <p>answer</p>
-{% if ans %}
 <p>{{ans}}</p>
-{% endif %}
 
 <p><a href="/">メニューに戻る</a></p>
 

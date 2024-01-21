@@ -10,26 +10,20 @@ def menu():
 #ベース
 @app.route("/calculate/", methods=["GET", "POST"])
 def cal():
+  modes = ["","","",""]
   if request.method=="POST":
-    ans = 0
-    var_a = 0
-    var_b = 0
     var_a = request.form.get("var_a", type=int)
     var_b = request.form.get("var_b", type=int)
-    if type(var_a) is not int:
-      var_a = 0
-    if type(var_b) is not int:
-      var_b = 0
+    index_mode = request.form.get("mode", type=int)
+    modes[index_mode] = "checked"
 
-    mode = request.form.get("mode")
-    if mode == "plus":
-      ans = calculate.plus(var_a, var_b)
-    elif mode == "mlt_by":
-      ans = calculate.mlt_by(var_a, var_b)
+    ans = calculate.regulate(var_a, var_b, index_mode)
     
-    return render_template("calculate.html", ans=str(ans), var_a=str(var_a), var_b=str(var_b))
+    return render_template("calculate.html", modes=modes, ans=str(ans), var_a=str(var_a), var_b=str(var_b))
   else:
-    return render_template("calculate.html")
+    modes = ["checked","","",""]
+
+    return render_template("calculate.html", modes=modes)
 
 @app.route("/hello/", methods=["GET", "POST"])
 def hello():
