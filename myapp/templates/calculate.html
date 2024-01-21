@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %} calculation {% endblock %}
+
+{% block content %}
+<form method="POST" action="/calculate/">
+  <input type="radio" name="mode" id="plus" value="plus" checked>たし算
+  <input type="radio" name="mode" id="mlt_by" value="mlt_by">かけ算
+  <input type="radio" name="mode" id="minus" value="minus">ひき算
+  <input type="radio" name="mode" id="div_by" value="div_by">わり算
+  <br>
+  
+  <label>a：</label>
+  <input
+    type="number"
+    name="var_a"
+    min="-30"
+    max="30"
+    step="1"
+    value={% if var_a %}{{var_a}}{% endif %}
+  >
+
+  <label>b：</label>
+  <input
+    type="number"
+    name="var_b"
+    min="-30"
+    max="30"
+    step="1" 
+    value={% if var_b %}{{var_b}}{% endif %}
+  >
+  
+  <button type="submit" hidden>変更</button>
+</form>
+
+<p>answer</p>
+{% if ans %}
+<p>{{ans}}</p>
+{% endif %}
+
+<p><a href="/">メニューに戻る</a></p>
+
+{% endblock %}
